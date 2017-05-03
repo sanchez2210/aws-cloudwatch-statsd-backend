@@ -56,7 +56,6 @@ describe('cloudwatch-backend', function() {
       expect(aws.CloudWatch().putMetricData).to.have.been.calledNever;
     });
 
-    // red test right now
     it('respects the whitelist, which implies blacklist', function() {
       var aws = stubAWS();
       var emitter = new MockEmitter();
