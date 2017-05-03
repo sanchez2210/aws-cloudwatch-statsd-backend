@@ -7,8 +7,16 @@
   "dependencies": {
     "aws-sdk": "~2.0.15"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "chai": "~3.5.0",
+    "mocha": "~3.3.0",
+    "sinon": "~2.1.0",
+    "sinon-chai": "~2.10.0"
+  },
   "optionalDependencies": {},
+  "scripts": {
+    "test": "mocha"
+  },
   "engines": {
     "node": "*"
   },
@@ -22,6 +30,6 @@
     "aws",
     "amazon",
     "cloudwatchappender"
-  ], 
+  ],
   "license": {"type": "MIT", "url": "https://github.com/camitz/aws-cloudwatch-statsd-backend/blob/master/LICENSE.md"}
 }
