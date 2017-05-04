@@ -16,7 +16,7 @@ describe('cloudwatch-backend', function() {
       var aws = stubAWS();
       var emitter = new MockEmitter();
 
-      backendInit(0, basicConfig(), emitter, null, aws);
+      backendInit(0, basicConfig(), emitter, logger(), aws);
       emitter.flush(1, {
         counters: { 'my.metric': 42 },
         gauges: {},
@@ -45,7 +45,7 @@ describe('cloudwatch-backend', function() {
 
       config.cloudwatch.blacklist = ['my.metric'];
 
-      backendInit(0, config, emitter, null, aws);
+      backendInit(0, config, emitter, logger(), aws);
       emitter.flush(1, {
         counters: { 'my.metric': 42 },
         gauges: {},
@@ -63,7 +63,7 @@ describe('cloudwatch-backend', function() {
 
       config.cloudwatch.whitelist = ['my.metric'];
 
-      backendInit(0, config, emitter, null, aws);
+      backendInit(0, config, emitter, logger(), aws);
       emitter.flush(1, {
         counters: { 'my.metric': 42, 'my.other': 99 },
         gauges: {},
@@ -93,7 +93,7 @@ describe('cloudwatch-backend', function() {
       config.cloudwatch.whitelist = ['my.metric'];
       config.cloudwatch.blacklist = ['my.metric', 'my.other'];
 
-      backendInit(0, config, emitter, null, aws);
+      backendInit(0, config, emitter, logger(), aws);
       emitter.flush(1, {
         counters: { 'my.metric': 42, 'my.other': 99 },
         gauges: {},
@@ -124,7 +124,7 @@ describe('cloudwatch-backend', function() {
       Credentials: sinon.spy(),
       EC2MetadataCredentials: sinon.stub().returns({
         refresh: function(cb) {
-          cb.apply(null, []);
+          cb.apply(logger(), []);
         },
         request: function(cb) {
           throw "this path isn't stubbed yet";
@@ -159,5 +159,9 @@ describe('cloudwatch-backend', function() {
         region: 'us-east-1'
       }
     };
+  }
+
+  function logger() {
+    return { log: sinon.spy() };
   }
 });
