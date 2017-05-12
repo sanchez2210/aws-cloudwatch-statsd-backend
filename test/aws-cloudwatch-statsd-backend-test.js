@@ -121,14 +121,14 @@ describe('cloudwatch-backend', function() {
       CloudWatch: sinon.stub().returns({
         putMetricData: sinon.spy()
       }),
-      Credentials: sinon.spy(),
       EC2MetadataCredentials: sinon.stub().returns({
+        get: function(cb) {
+          console.log("my credentials stub: get");
+          cb(null);
+        },
         refresh: function(cb) {
           cb.apply(logger(), []);
         },
-        request: function(cb) {
-          throw "this path isn't stubbed yet";
-        }
       }),
     };
   }
