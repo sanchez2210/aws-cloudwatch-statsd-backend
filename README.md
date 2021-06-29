@@ -91,9 +91,9 @@ For example, sending StatsD the following
 
 is will produce the equivalent to the former configuration example. Note that both will be suppressed if overriden as in the former configuration example.
 
-## Whitelisting Metrics
+## Whitelisting/Blacklisting Metrics
 
-Using cloudwatch will incur a cost for each metric sent. In order to control your costs, you can optionally whitelist (by full metric name) those metrics sent to cloudwatch. For example:
+Using cloudwatch will incur a cost for each metric sent. In order to control your costs, you can optionally whitelist and blacklist (by full metric name) those metrics sent to cloudwatch. For example:
 
     {
         backends: [ "aws-cloudwatch-statsd-backend" ],
@@ -102,7 +102,8 @@ Using cloudwatch will incur a cost for each metric sent. In order to control you
             accessKeyId: 'YOUR_ACCESS_KEY_ID', 
             secretAccessKey: 'YOUR_SECRET_ACCESS_KEY', 
             region: 'YOUR_REGION',
-            whitelist: ['YOUR_FULL_METRIC_NAME']
+            whitelist: ['YOUR_FULL_METRIC_NAME'],
+            blacklist: ['statsd.']
         }
     }
 
